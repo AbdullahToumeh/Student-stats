@@ -58,11 +58,14 @@ describe("Process Data", () => {
                     'project4'
                 ])
             })
-            it("should calculate the average satisfaction for passing students", () => {
-                expect().toEqual()
+            it("should calculate the average satisfaction for passing students in project 1", () => {
+                expect(processedData.projects.project1.passed.satisfaction).toEqual(2)
             })
-            it("should calculate the average satisfaction for failed students", () => {
-                expect().toEqual()
+            it("should calculate the average satisfaction for failed students in project 1", () => {
+                expect(processedData.projects.project1.failed.satisfaction).toEqual(3)
+            })
+            it("should calculate the average satisfaction for failed students in project 2", () => {
+                expect(processedData.projects.project2.failed.satisfaction).toEqual(2)
             })
         })
         describe("Experience", () => {
