@@ -38,52 +38,61 @@ module.exports = data => {
     let projects = {};
 
     projects.project1 = {
-        passed: {},
-        failed: {}
+        passed: { number: undefined ,satisfaction: undefined },
+        failed: { number: undefined ,satisfaction: undefined }
     };
     projects.project2 = {
-        passed: {},
-        failed: {}
+        passed: { number: undefined ,satisfaction: undefined },
+        failed: { number: undefined ,satisfaction: undefined }
     };
     projects.project3 = {
-        passed: {},
-        failed: {}
+        passed: { number: undefined ,satisfaction: undefined },
+        failed: { number: undefined ,satisfaction: undefined }
     };
     projects.project4 = {
-        passed: {},
-        failed: {}
+        passed: { number: undefined ,satisfaction: undefined },
+        failed: { number: undefined ,satisfaction: undefined }
     };
 
-    const projectValues = projectInput => {
-        let project = projects[projectInput];
-
-        let passedNumber = project.passed.number;
-        let passedSatisfaction = project.passed.satisfaction;
-
-        let failedNumber = project.failed.number;
-        let failedSatisfactoin = project.failed.satisfaction;
+    const projectValues = projectNum => {
+        let project = projects[projectNum];
 
         for (i = 0; i < data.length ; i++) {
-            if (data[i][projectInput] === 'pass'){}
-        }
+            if (data[i][projectNum] === 'pass'){
+                if (project.passed.number === undefined) {
+                    project.passed.number = 1;
+                }
+                if(project.passed.satisfaction === undefined) {
+                    project.passed.satisfaction = data[i].satisfaction;
+                } else {
+                    satisfactionPassed = project.passed.satisfaction;
+                    project.passed.number += 1;                     
+                    project.passed.satisfaction = (satisfactionPassed + data[i].satisfaction) / 2;    
+                }
+            } else {
+            if (data[i][projectNum] === 'fail') {
+                if (project.failed.number === undefined) {
+                    project.failed.number = 1;
+                }
+                if (project.failed.satisfaction === undefined) {
+                    project.failed.satisfaction = data[i].satisfaction;
+                } else {
+                    satisfactionFailed = project.failed.satisfaction;
+                    project.failed.number += 1;
+                    project.failed.satisfaction = (satisfactionFailed + data[i].satisfaction) / 2;
 
+                }
+            }
+            }
+        }
     }
+    
     projectValues("project1");
+    projectValues("project2");
+    projectValues("project3");
+    projectValues("project4");
 
     // console.log(projects)
-
-
-
-
-    // return {demographics , experience, projects}
-
-
-
-
-
-
-    
-
-
+    return {demographics , experience, projects}
 
 }
